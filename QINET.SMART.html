@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QINET SMART SCHOOL</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#00152e,#003366,#001933);
+color:white;
+overflow-x:hidden;
+}
+
+/* LOADER */
+
+#loader{
+position:fixed;
+width:100%;
+height:100vh;
+background:radial-gradient(circle,#003b80,#00152e);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9999;
+}
+
+/* LOGO DO LOADER */
+
+#logoLoader{
+width:260px;
+margin-bottom:25px;
+
+animation:flutuar 3s ease-in-out infinite;
+
+filter:
+drop-shadow(0 0 25px #00ccff)
+brightness(1.1);
+}
+
+.spinner{
+width:120px;
+height:120px;
+border:8px solid rgba(255,255,255,0.1);
+border-top:8px solid #00ccff;
+border-radius:50%;
+animation:girar 1s linear infinite;
+margin-top:20px;
+}
+
+@keyframes girar{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+@keyframes flutuar{
+0%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0);}
+}
+
+#loader h1{
+font-size:35px;
+text-shadow:0 0 20px #00ccff;
+}
+
+#loader p{
+margin-top:10px;
+color:#d9f2ff;
+}
+
+/* HEADER */
+
+header{
+background:rgba(0,0,0,0.25);
+backdrop-filter:blur(10px);
+text-align:center;
+padding:30px;
+border-bottom:2px solid rgba(255,255,255,0.1);
+box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+
+/* LOGOTIPO */
+
+#logoTopoPrincipal{
+width:240px;
+display:block;
+margin:auto;
+
+filter:
+drop-shadow(0 0 20px #00aaff)
+brightness(1.1)
+contrast(1.1);
+
+animation:flutuar 3s ease-in-out infinite;
+}
+
+header h1{
+margin-top:15px;
+font-size:36px;
+text-shadow:0 0 15px #00ccff;
+}
+
+header p{
+margin-top:10px;
+font-size:18px;
+color:#d6ecff;
+}
+
+/* CONTAINER */
+
+.container{
+width:95%;
+max-width:1200px;
+margin:25px auto;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:20px;
+padding:25px;
+backdrop-filter:blur(15px);
+box-shadow:0 0 30px rgba(0,0,0,0.3);
+animation:entrada 1s ease;
+}
+
+@keyframes entrada{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.info{
+background:rgba(0,153,255,0.15);
+border-left:6px solid #00ccff;
+padding:18px;
+border-radius:12px;
+margin-bottom:20px;
+line-height:1.6;
+}
+
+input{
+width:100%;
+padding:16px;
+border:none;
+border-radius:12px;
+margin-top:10px;
+background:rgba(255,255,255,0.1);
+color:white;
+border:1px solid rgba(255,255,255,0.2);
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#0077ff,#00bfff);
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+#resultadoPesquisa{
+margin-top:20px;
+padding:20px;
+border-radius:15px;
+background:rgba(255,255,255,0.08);
+display:none;
+}
+
+.hidden{
+display:none;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th{
+background:#0077cc;
+padding:15px;
+}
+
+td{
+padding:12px;
+text-align:center;
+border:1px solid rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.05);
+}
+
+.aprovado{
+color:#00ff99;
+font-weight:bold;
+}
+
+.reprovado{
+color:#ff4d4d;
+font-weight:bold;
+}
+
+footer{
+text-align:center;
+padding:20px;
+color:#d0e9ff;
+}
+
+@media(max-width:700px){
+
+header h1{
+font-size:24px;
+}
+
+#logoTopoPrincipal,
+#logoLoader{
+width:170px;
+}
+
+table{
+font-size:12px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+<img src="rosa.png" id="logoLoader">
+
+<h1>A CARREGAR O SISTEMA...</h1>
+
+<p>QINET SMART SCHOOL</p>
+
+<div class="spinner"></div>
+
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+<img src="rosa.png" id="logoTopoPrincipal">
+
+<h1>INSTITUTO POLITÉCNICO PRIVADO QINET</h1>
+
+<p>QINET SMART SCHOOL - Sistema Inteligente de Pautas</p>
+
+</header>
+
+<!-- CONTEÚDO -->
+
+<div class="container">
+
+<div class="info">
+
+📢 Bem-vindo ao Portal Inteligente Académico do IPPQINET.<br><br>
+
+✔ Sistema privado e profissional.<br>
+✔ Pesquisa individual de estudantes.<br>
+✔ Pauta académica inteligente.<br>
+✔ Envio automático via WhatsApp.<br>
+✔ Link privado da pauta.
+
+</div>
+
+<h2>🔍 Pesquisar Estudante</h2>
+
+<input type="text"
+id="pesquisa"
+placeholder="Digite o nome do estudante">
+
+<button onclick="pesquisarAluno()">
+
+Pesquisar Estudante
+
+</button>
+
+<div id="resultadoPesquisa"></div>
+
+</div>
+
+<!-- PAUTA -->
+
+<div class="container hidden" id="pauta">
+
+<h2 style="text-align:center;">
+📄 PAUTA ACADÉMICA
+</h2>
+
+<h3 id="dadosAluno"
+style="text-align:center;color:#9fdcff;margin-top:15px;">
+</h3>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Disciplina</th>
+<th>1º Trim</th>
+<th>2º Trim</th>
+<th>3º Trim</th>
+<th>Média</th>
+<th>Estado</th>
+</tr>
+
+</thead>
+
+<tbody id="tabelaNotas"></tbody>
+
+</table>
+
+<h2 id="resultadoFinal"
+style="text-align:center;margin-top:20px;">
+</h2>
+
+<button onclick="enviarWhatsApp()">
+
+📲 Enviar Link da Pauta
+
+</button>
+
+</div>
+
+<footer>
+
+© 2026 QINET SMART SCHOOL — Sistema Académico Inteligente
+
+</footer>
+
+<script>
+
+/* LOADER */
+
+setTimeout(()=>{
+
+document.getElementById("loader").style.display="none";
+
+},3000);
+
+/* DISCIPLINAS */
+
+let disciplinas=[
+
+"LINGUA PORTUGUESA",
+"MATEMÁTICA",
+"FÍSICA",
+"TLP",
+"QUÍMICA",
+"SEAC",
+"TIC",
+"ED FÍSICA",
+"INGLÊS",
+"FAI",
+"EMPREENDEDORISMO"
+
+];
+
+/* GERAR NOTAS */
+
+function notaAleatoria(){
+
+return Math.floor(Math.random()*11)+8;
+
+}
+
+/* ESTUDANTES */
+
+let estudantes=[
+
+{
+nome:"ANDERSON MIGUEL",
+curso:"INFORMÁTICA",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1001"
+},
+
+{
+nome:"LOPES KIALA",
+curso:"ELECTRÓNICA",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1002"
+},
+
+{
+nome:"MARGARIDA NUNES",
+curso:"MECÂNICA",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1003"
+},
+
+{
+nome:"TERESA DA SILVA",
+curso:"INFORMÁTICA",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1004"
+}
+
+];
+
+/* PESQUISAR */
+
+function pesquisarAluno(){
+
+let texto=document
+.getElementById("pesquisa")
+.value
+.toUpperCase();
+
+let aluno=estudantes.find(e=>
+e.nome.includes(texto)
+);
+
+if(!aluno){
+
+alert("Aluno não encontrado!");
+
+return;
+
+}
+
+document.getElementById("resultadoPesquisa")
+.style.display="block";
+
+document.getElementById("resultadoPesquisa")
+.innerHTML=`
+
+<h3>✅ Estudante Encontrado</h3><br>
+
+<b>👤 Nome:</b> ${aluno.nome}<br><br>
+
+<b>🎓 Curso:</b> ${aluno.curso}<br><br>
+
+<b>🏫 Classe:</b> ${aluno.classe}<br><br>
+
+<b>🅰 Turma:</b> ${aluno.turma}<br><br>
+
+<b>🔐 Código:</b> ${aluno.codigo}<br><br>
+
+<button onclick="abrirPauta('${aluno.nome}')">
+
+Abrir Pauta
+
+</button>
+
+`;
+
+}
+
+/* ABRIR PAUTA */
+
+function abrirPauta(nome){
+
+let aluno=estudantes.find(e=>
+e.nome==nome
+);
+
+document.getElementById("pauta")
+.classList.remove("hidden");
+
+document.getElementById("dadosAluno")
+.innerHTML=
+
+`
+👤 ${aluno.nome}
+|
+🎓 ${aluno.curso}
+|
+🏫 ${aluno.classe}
+|
+🅰 ${aluno.turma}
+|
+🔐 ${aluno.codigo}
+`;
+
+let tabela=
+document.getElementById("tabelaNotas");
+
+tabela.innerHTML="";
+
+let soma=0;
+
+for(let i=0;i<disciplinas.length;i++){
+
+let n1=notaAleatoria();
+let n2=notaAleatoria();
+let n3=notaAleatoria();
+
+let media=
+((n1+n2+n3)/3).toFixed(1);
+
+soma+=Number(media);
+
+let estado=
+
+media>=10
+
+?
+
+"<span class='aprovado'>TRANSITA</span>"
+
+:
+
+"<span class='reprovado'>NÃO TRANSITA</span>";
+
+tabela.innerHTML += `
+
+<tr>
+
+<td>${disciplinas[i]}</td>
+
+<td>${n1}</td>
+
+<td>${n2}</td>
+
+<td>${n3}</td>
+
+<td>${media}</td>
+
+<td>${estado}</td>
+
+</tr>
+
+`;
+
+}
+
+let mediaFinal=
+(soma/disciplinas.length).toFixed(1);
+
+let resultado=
+
+mediaFinal>=10
+
+?
+
+"✅ APROVADO"
+
+:
+
+"❌ REPROVADO";
+
+document.getElementById("resultadoFinal")
+.innerHTML=
+
+`
+MÉDIA FINAL:
+${mediaFinal}
+—
+${resultado}
+`;
+
+}
+
+/* WHATSAPP */
+
+function enviarWhatsApp(){
+
+let numero=
+prompt("Digite o número do WhatsApp:");
+
+if(numero==""){
+
+alert("Digite um número válido!");
+return;
+
+}
+
+let linkSite=
+"https://qinet-school.netlify.app";
+
+let mensagem=
+
+"🔐 QINET SMART SCHOOL%0A%0A"+
+
+"Olá Encarregado,%0A%0A"+
+
+"A pauta académica foi autorizada.%0A%0A"+
+
+"🌐 Link:%0A"+
+
+linkSite;
+
+let link=
+
+`https://wa.me/${numero}?text=${mensagem}`;
+
+window.open(link,'_blank');
+
+}
+
+</script>
+
+</body>
+</html>

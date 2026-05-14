@@ -35,12 +35,9 @@ flex-direction:column;
 z-index:9999;
 }
 
-/* LOGO DO LOADER */
-
 #logoLoader{
 width:260px;
 margin-bottom:25px;
-
 animation:flutuar 3s ease-in-out infinite;
 
 filter:
@@ -89,8 +86,6 @@ padding:30px;
 border-bottom:2px solid rgba(255,255,255,0.1);
 box-shadow:0 0 25px rgba(0,0,0,0.4);
 }
-
-/* LOGOTIPO */
 
 #logoTopoPrincipal{
 width:240px;
@@ -217,6 +212,11 @@ color:#00ff99;
 font-weight:bold;
 }
 
+.recurso{
+color:#ffd633;
+font-weight:bold;
+}
+
 .reprovado{
 color:#ff4d4d;
 font-weight:bold;
@@ -254,7 +254,7 @@ font-size:12px;
 
 <div id="loader">
 
-<img src="transferir.jpeg" id="logoLoader">
+<img src="rosa.png" id="logoLoader">
 
 <h1>A CARREGAR O SISTEMA...</h1>
 
@@ -296,7 +296,7 @@ font-size:12px;
 
 <input type="text"
 id="pesquisa"
-placeholder="Digite o nome do estudante">
+placeholder="Digite o nome completo do estudante">
 
 <button onclick="pesquisarAluno()">
 
@@ -369,56 +369,99 @@ document.getElementById("loader").style.display="none";
 
 /* DISCIPLINAS */
 
-let disciplinas=[
+const disciplinasCursos = {
 
-"LINGUA PORTUGUESA",
+"INFORMÁTICA_10": [
+"L.PORTUGUESA",
 "MATEMÁTICA",
-"FÍSICA",
 "TLP",
-"QUÍMICA",
 "SEAC",
+"FÍSICA",
 "TIC",
-"ED FÍSICA",
-"INGLÊS",
 "FAI",
+"EMPREENDEDORISMO",
+"INGLÊS",
+"QUÍMICA"
+],
+
+"INFORMÁTICA_11": [
+"L.PORTUGUESA",
+"MATEMÁTICA",
+"TLP",
+"SEAC",
+"FÍSICA",
+"DT",
+"FAI",
+"EMPREENDEDORISMO",
+"INGLÊS",
+"QUÍMICA"
+],
+
+"INFORMÁTICA DE GESTAO_10": [
+"L.PORTUGUESA",
+"MATEMÁTICA",
+"TLP",
+"SEAC",
+"FÍSICA",
+"TIC",
+"FAI",
+"EMPREENDEDORISMO",
+"INGLÊS",
+"QUÍMICA",
+"ED FÍSICA"
+],
+
+"IG_11": [
+"L.PORTUGUESA",
+"MATEMÁTICA",
+"TLP",
+"SEAC",
+"FÍSICA",
+"TIC",
+"FAI",
+"EMPREENDEDORISMO",
+"INGLÊS",
+"DT",
+"QUÍMICA"
+],
+
+"ELECTRICIDADE_11": [
+"L.PORTUGUESA",
+"MATEMÁTICA",
+"POL",
+"IE",
+"FÍSICA",
+"T.E",
+"E.I",
+"EDUCAÇÃO FÍSICA",
+"INGLÊS",
+"QUÍMICA",
+"M.E",
 "EMPREENDEDORISMO"
+]
 
-];
-
-/* GERAR NOTAS */
-
-function notaAleatoria(){
-
-return Math.floor(Math.random()*11)+8;
-
-}
+};
 
 /* ESTUDANTES */
 
 let estudantes=[
 
 {
-nome:"ANDERSON MIGUEL",
+nome:"JOSÉ CARLOS",
 curso:"INFORMÁTICA",
-classe:"11ª",
+classe:"10ª",
 turma:"A",
-codigo:"IPPQ1001"
-},
-
-{
-nome:"LOPES KIALA",
-curso:"ELECTRÓNICA",
-classe:"11ª",
-turma:"A",
-codigo:"IPPQ1002"
+codigo:"IPPQ1001",
+estado:"APROVADO"
 },
 
 {
 nome:"MARGARIDA NUNES",
-curso:"MECÂNICA",
-classe:"11ª",
+curso:"INFORMÁTICA",
+classe:"10ª",
 turma:"A",
-codigo:"IPPQ1003"
+codigo:"IPPQ1002",
+estado:"APROVADO"
 },
 
 {
@@ -426,10 +469,92 @@ nome:"TERESA DA SILVA",
 curso:"INFORMÁTICA",
 classe:"11ª",
 turma:"A",
-codigo:"IPPQ1004"
+codigo:"IPPQ1003",
+estado:"APROVADO"
+},
+
+{
+nome:"ANDERSON MIGUEL",
+curso:"INFORMÁTICA",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1004",
+estado:"REPROVADO"
+},
+
+{
+nome:"JOÃO KETO",
+curso:"INFORMÁTICA DE GESTAO",
+classe:"10ª",
+turma:"A",
+codigo:"IPPQ1005",
+estado:"APROVADO"
+},
+
+{
+nome:"STEFANIA LINO",
+curso:"INFORMÁTICA DE GESTAO",
+classe:"10ª",
+turma:"A",
+codigo:"IPPQ1006",
+estado:"APROVADO"
+},
+
+{
+nome:"MADALENA DAVID",
+curso:"IG",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1007",
+estado:"APROVADO"
+},
+
+{
+nome:"NELSON NHANGA",
+curso:"IG",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1008",
+estado:"REPROVADO"
+},
+
+{
+nome:"EUGÊNIA MORAIS",
+curso:"ELECTRICIDADE",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1009",
+estado:"APROVADO"
+},
+
+{
+nome:"EMANUEL KUTA",
+curso:"ELECTRICIDADE",
+classe:"11ª",
+turma:"A",
+codigo:"IPPQ1010",
+estado:"RECURSO"
 }
 
 ];
+
+/* NOTAS */
+
+function notaAprovado(){
+return Math.floor(Math.random()*5)+14;
+}
+
+function notaRecursoPositiva(){
+return Math.floor(Math.random()*5)+10;
+}
+
+function notaRecursoNegativa(){
+return Math.floor(Math.random()*2)+8;
+}
+
+function notaReprovado(){
+return Math.floor(Math.random()*3)+5;
+}
 
 /* PESQUISAR */
 
@@ -438,10 +563,19 @@ function pesquisarAluno(){
 let texto=document
 .getElementById("pesquisa")
 .value
+.trim()
 .toUpperCase();
 
+if(texto.split(" ").length < 2){
+
+alert("Digite o nome e sobrenome do estudante!");
+
+return;
+
+}
+
 let aluno=estudantes.find(e=>
-e.nome.includes(texto)
+e.nome===texto
 );
 
 if(!aluno){
@@ -506,6 +640,12 @@ document.getElementById("dadosAluno")
 🔐 ${aluno.codigo}
 `;
 
+let chave=
+`${aluno.curso}_${aluno.classe.replace("ª","")}`;
+
+let disciplinas=
+disciplinasCursos[chave];
+
 let tabela=
 document.getElementById("tabelaNotas");
 
@@ -513,28 +653,84 @@ tabela.innerHTML="";
 
 let soma=0;
 
+let contadorRecurso=0;
+
 for(let i=0;i<disciplinas.length;i++){
 
-let n1=notaAleatoria();
-let n2=notaAleatoria();
-let n3=notaAleatoria();
+let n1,n2,n3;
+
+if(aluno.estado=="APROVADO"){
+
+n1=notaAprovado();
+n2=notaAprovado();
+n3=notaAprovado();
+
+}
+
+else if(aluno.estado=="RECURSO"){
+
+if(contadorRecurso < 3){
+
+n1=notaRecursoNegativa();
+n2=notaRecursoNegativa();
+n3=notaRecursoNegativa();
+
+contadorRecurso++;
+
+}else{
+
+n1=notaRecursoPositiva();
+n2=notaRecursoPositiva();
+n3=notaRecursoPositiva();
+
+}
+
+}
+
+else{
+
+n1=notaReprovado();
+n2=notaReprovado();
+n3=notaReprovado();
+
+}
 
 let media=
-((n1+n2+n3)/3).toFixed(1);
+Math.round((n1+n2+n3)/3);
 
-soma+=Number(media);
+soma+=media;
 
-let estado=
+let estadoLinha="";
 
-media>=10
+if(aluno.estado=="APROVADO"){
 
-?
+estadoLinha=
+"<span class='aprovado'>TRANSITA</span>";
 
-"<span class='aprovado'>TRANSITA</span>"
+}
 
-:
+else if(aluno.estado=="RECURSO"){
 
+if(media < 10){
+
+estadoLinha=
+"<span class='recurso'>RECURSO</span>";
+
+}else{
+
+estadoLinha=
+"<span class='aprovado'>TRANSITA</span>";
+
+}
+
+}
+
+else{
+
+estadoLinha=
 "<span class='reprovado'>NÃO TRANSITA</span>";
+
+}
 
 tabela.innerHTML += `
 
@@ -550,7 +746,7 @@ tabela.innerHTML += `
 
 <td>${media}</td>
 
-<td>${estado}</td>
+<td>${estadoLinha}</td>
 
 </tr>
 
@@ -558,20 +754,37 @@ tabela.innerHTML += `
 
 }
 
+/* RESULTADO FINAL */
+
+if(aluno.estado=="RECURSO"){
+
+document.getElementById("resultadoFinal")
+.innerHTML=
+
+`
+🟡 RECURSO EM 3 DISCIPLINAS
+`;
+
+}
+
+else{
+
 let mediaFinal=
-(soma/disciplinas.length).toFixed(1);
+Math.round(soma/disciplinas.length);
 
-let resultado=
+let resultado="";
 
-mediaFinal>=10
+if(aluno.estado=="APROVADO"){
 
-?
+resultado="✅ APROVADO";
 
-"✅ APROVADO"
+}
 
-:
+else{
 
-"❌ REPROVADO";
+resultado="❌ REPROVADO";
+
+}
 
 document.getElementById("resultadoFinal")
 .innerHTML=
@@ -582,6 +795,8 @@ ${mediaFinal}
 —
 ${resultado}
 `;
+
+}
 
 }
 
